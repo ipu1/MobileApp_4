@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect } from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import { IonContent, IonPage, IonInput, IonButton, IonText, IonHeader, IonToolbar, IonTitle, IonToast } from '@ionic/react';
@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import './pages.css';
 
 const Tab1: React.FC = () => {
+  const [user, setUser] = useState<firebase.User | null>(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showToast, setShowToast] = useState<boolean>(false);
@@ -25,11 +26,33 @@ const Tab1: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+
+    // Clean up the observer when component unmounts
+    return () => unsubscribe();
+  }, []);
+
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Tab 3</IonTitle>
+          <IonTitle>
+            {user ? (
+              <div style={{ display: "flex" }}>
+                <p>Welcome, {user.email}</p>
+                <IonButton style={{ paddingRight: "10px" }}onClick={() => firebase.auth().signOut()}>Sign out</IonButton>
+              </div>
+            ) : (
+              <p>You are not logged in</p>
+            )}
+          </IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
