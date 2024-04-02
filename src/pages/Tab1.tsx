@@ -32,7 +32,7 @@ const Tab1: React.FC = () => {
           <IonInput type="password" placeholder="Password" value={password} onIonChange={(e) => setPassword(e.detail.value!)} />
           <IonButton expand="block" onClick={handleLogin}>Login</IonButton>
           {showError && <IonText color="danger">{errorMessage}</IonText>}
-          <p className="register-link">Don't have an account? <Link to="/register">Register</Link></p>
+          <p className="register-link">Don't have an account? <Link to="/tab2">Register</Link></p>
         </div>
       </IonContent>
     </IonPage>
