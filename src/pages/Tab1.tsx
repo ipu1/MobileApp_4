@@ -1,18 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-import firebaseConfig from '../firebaseConfig';
-import { IonContent, IonPage, IonInput, IonButton, IonToast } from '@ionic/react';
+import { IonContent, IonPage, IonInput, IonButton, IonToast, IonText } from '@ionic/react';
+import { Link } from 'react-router-dom';
+import './pages.css';
 
 const Tab1: React.FC = () => {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [showToast, setShowToast] = React.useState<boolean>(false);
-  const [toastMessage, setToastMessage] = React.useState<string>('');
-
-  React.useEffect(() => {
-    firebase.initializeApp(firebaseConfig);
-  }, []);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showError, setShowError] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const handleLogin = async () => {
     try {
@@ -21,18 +18,22 @@ const Tab1: React.FC = () => {
       // Redirect or navigate to the next page upon successful login
     } catch (error) {
       console.error('Error signing in:', error.message);
-      setToastMessage(error.message);
-      setShowToast(true);
+      setErrorMessage("Wrong credentials! TRY AGAIN!!!");
+      setShowError(true);
     }
   };
 
   return (
     <IonPage>
-      <IonContent>
-        <IonInput type="email" placeholder="Email" value={email} onIonChange={(e) => setEmail(e.detail.value!)} />
-        <IonInput type="password" placeholder="Password" value={password} onIonChange={(e) => setPassword(e.detail.value!)} />
-        <IonButton onClick={handleLogin}>Login</IonButton>
-        <IonToast isOpen={showToast} message={toastMessage} onDidDismiss={() => setShowToast(false)} />
+      <IonContent className="ion-padding">
+        <div className="login-form">
+          <h1>Login</h1>
+          <IonInput type="email" placeholder="Email" value={email} onIonChange={(e) => setEmail(e.detail.value!)} />
+          <IonInput type="password" placeholder="Password" value={password} onIonChange={(e) => setPassword(e.detail.value!)} />
+          <IonButton expand="block" onClick={handleLogin}>Login</IonButton>
+          {showError && <IonText color="danger">{errorMessage}</IonText>}
+          <p className="register-link">Don't have an account? <Link to="/register">Register</Link></p>
+        </div>
       </IonContent>
     </IonPage>
   );
