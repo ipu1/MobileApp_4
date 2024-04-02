@@ -15,6 +15,10 @@ import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
 
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import firebaseConfig from './firebaseConfig';
+
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -35,6 +39,8 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 
 setupIonicReact();
+
+firebase.initializeApp(firebaseConfig);
 
 const App: React.FC = () => (
   <IonApp>
