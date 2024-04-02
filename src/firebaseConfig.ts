@@ -1,11 +1,10 @@
-
 const firebaseConfig = {
-    apiKey: "AIzaSyAjbqugEoXcDsVoV0c06zDFb2hXQPPOPK0",
-    authDomain: "lab4-77488.firebaseapp.com",
-    projectId: "lab4-77488",
-    storageBucket: "lab4-77488.appspot.com",
-    messagingSenderId: "71562012774",
-    appId: "1:71562012774:web:4ca764dabefec250b6a5a7"
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID"
   };
   
   export default firebaseConfig;
