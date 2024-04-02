@@ -28,7 +28,7 @@ const Tab2: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Tab 3</IonTitle>
+          <IonTitle>Register</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">

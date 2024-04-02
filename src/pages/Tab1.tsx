@@ -1,7 +1,7 @@
 import React, {useState, useEffect } from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-import { IonContent, IonPage, IonInput, IonButton, IonText, IonHeader, IonToolbar, IonTitle, IonToast } from '@ionic/react';
+import { IonContent, IonPage, IonInput, IonButton, IonText, IonHeader, IonToolbar, IonTitle, IonToast, IonButtons } from '@ionic/react';
 import { Link } from 'react-router-dom';
 import './pages.css';
 
@@ -35,7 +35,6 @@ const Tab1: React.FC = () => {
       }
     });
 
-    // Clean up the observer when component unmounts
     return () => unsubscribe();
   }, []);
 
@@ -43,18 +42,13 @@ const Tab1: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>
-            {user ? (
-              <div style={{ display: "flex" }}>
-                <p>Welcome, {user.email}</p>
-                <IonButton style={{ paddingRight: "10px" }}onClick={() => firebase.auth().signOut()}>Sign out</IonButton>
-              </div>
-            ) : (
-              <p>You are not logged in</p>
-            )}
-          </IonTitle>
+          <IonTitle>{user ? `Welcome, ${user.email}` : 'Lab4'}</IonTitle>
+          <IonButtons slot="end">
+            {user && <IonButton expand="block" onClick={() => firebase.auth().signOut()}>Logout</IonButton>}
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
+
       <IonContent className="ion-padding">
         <div className="login-form">
           <h1>Login</h1>
